@@ -1,0 +1,9 @@
+http://srv-rir-app01:8080/rar/2.2/info?wsdl
+http://srv-rir-app02:8080/rar/2.2/info?wsdl
+http://srv-rir-app03:8080/rar/2.2/info?wsdl
+http://srv-rir-app04:8080/rar/2.2/info?wsdl
+http://srv-rir-app05:8080/rar/2.2/info?wsdl
+http://srv-rir-app06:8080/rar/2.2/info?wsdl
+http://srv-rir-app07:8080/rar/2.2/info?wsdl
+http://srv-rir-app08:8080/rar/2.2/info?wsdl
+http://srv-rir-app09:8080/rar/2.2/info?wsdl

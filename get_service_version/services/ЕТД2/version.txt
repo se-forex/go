@@ -1,0 +1,2 @@
+http://srv-etd2-app01:8080/etd2/ui/info
+http://srv-etd2-app02:8080/etd2/ui/info

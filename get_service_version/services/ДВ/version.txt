@@ -1,0 +1,2 @@
+http://srv-dutydok-app01:8080/build-info
+http://srv-dutydok-app02:8080/build-info

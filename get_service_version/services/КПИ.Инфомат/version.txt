@@ -1,0 +1,10 @@
+http://srv-infomatp1-app01:8080/web-infomat/build-info
+http://srv-infomatp1-app02:8080/web-infomat/build-info
+http://srv-infomatp1-app03:8080/web-infomat/build-info
+http://srv-infomatp1-app04:8080/web-infomat/build-info
+http://srv-infomatp1-app05:8080/web-infomat/build-info
+http://srv-infomatp2-app01:8080/web-infomat/build-info
+http://srv-infomatp2-app02:8080/web-infomat/build-info
+http://srv-infomatp2-app03:8080/web-infomat/build-info
+http://srv-infomatp2-app04:8080/web-infomat/build-info
+http://srv-infomatp2-app05:8080/web-infomat/build-info

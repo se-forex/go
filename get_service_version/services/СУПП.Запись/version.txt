@@ -1,0 +1,9 @@
+http://srv-zsz-app01:8080/register-appointment-composite/info
+http://srv-zsz-app02:8080/register-appointment-composite/info
+http://srv-zsz-app03:8080/register-appointment-composite/info
+http://srv-zsz-app04:8080/register-appointment-composite/info
+http://srv-zsz-app05:8080/register-appointment-composite/info
+http://srv-zsz-app06:8080/register-appointment-composite/info
+http://srv-zsz-app07:8080/register-appointment-composite/info
+http://srv-zsz-app08:8080/register-appointment-composite/info
+http://srv-zsz-app09:8080/register-appointment-composite/info

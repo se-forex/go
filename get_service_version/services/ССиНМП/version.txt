@@ -1,0 +1,5 @@
+http://srv-ssnmp-papp01:8080/services/info
+http://srv-ssnmp-papp02:8080/services/info
+http://srv-ssnmp-papp03:8080/services/info
+http://srv-ssnmp-papp04:8080/services/info
+http://srv-ssnmp-papp05:8080/services/info

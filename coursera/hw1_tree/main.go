@@ -10,20 +10,115 @@ import (
 	// "strings"
 )
 
+var key int
+var sep1, sep2 string = "├───", "└───"
+
+func multiStr(s string, num int) string {
+	var newStr string
+	for i := 0; i < num; i++ {
+		newStr = newStr + s
+	}
+	return newStr
+}
+
+func printTree(fname, sep string, count int) {
+	fmt.Println(multiStr("    ", count)+sep, fname)
+}
+
+// // func shTree(path string, count int) error {
+// // 	files, err := ioutil.ReadDir(path)
+// // 	if err != nil {
+// // 		return err
+// // 	}
+
+// // 	//fmt.Println(len(files))
+
+// // 	for _, file := range files {
+// // 		if file.IsDir() {
+// // 			fmt.Println("├───", file.Name())
+// // 			err := dirTree(path + "/" + file.Name())
+// // 			if err != nil {
+// // 				continue
+// // 			}
+// // 		} else {
+// // 			fmt.Println("│  └───", file.Name())
+// // 		}
+// // 	}
+// // 	return nil
+// // }
+
+// // func printDir(sep string, level int) {
+// // 	fmt.Println(multiStr("a", level))
+// // }
+
+// // func getDir(path string) (names []os.FileInfo, count int, err error) {
+// // 	names, err = ioutil.ReadDir(path)
+// // 	if err != nil {
+// // 		return nil, 0, err
+// // 	}
+// // 	count = len(names)
+// // 	return names, count, err
+// // }
+
+// func dirTree(path string) error {
+// 	// sep1, sep2 := "├───", "└───"
+// 	var count int
+
+// 	// shTree(path, count)
+// 	files, err := ioutil.ReadDir(path)
+// 	if err != nil {
+// 		return err
+// 	}
+
+// 	//fmt.Println(len(files))
+
+// 	for _, file := range files {
+// 		if file.IsDir() {
+// 			fmt.Println("d├───", file.Name())
+// 		} else {
+// 			fmt.Println("f├───", file.Name())
+// 		}
+
+// 		err := dirTree(path + "/" + file.Name())
+// 		if err != nil {
+// 			continue
+// 		}
+// 	}
+// 	return nil
+// }
+
 func dirTree(path string) error {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		return err
 	}
 
+	i := 0
+	key++
+
 	for _, file := range files {
-		fmt.Println(file.Name())
+		if i < (len(files) - 1) {
+			// fmt.Println("i = ", i)
+			if key != 1 {
+				fmt.Print("│")
+			}
+			printTree(file.Name(), sep1, key-1)
+			// fmt.Println(file.Name())
+			i++
+		} else {
+			if key != 1 {
+				fmt.Print("│")
+			}
+			printTree(file.Name(), sep2, key-1)
+		}
+		// fmt.Println(file.Name())
 
 		err := dirTree(path + "/" + file.Name())
 		if err != nil {
 			continue
 		}
 	}
+	key--
 	return nil
 }
 
@@ -38,6 +133,7 @@ func main() {
 	// if err != nil {
 	// 	panic(err.Error())
 	// }
+	//fmt.Println(multiStr("a", 3))
 	fmt.Println("pfiles", printFiles)
 	dirTree(path)
 }

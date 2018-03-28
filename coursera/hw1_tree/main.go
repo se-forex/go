@@ -72,6 +72,7 @@ import (
 // 	return nil
 // }
 
+/* =============== OLD CODE START ===================
 var key int
 var sep1, sep2 string = "├───", "└───"
 
@@ -91,7 +92,7 @@ func printTree(fname, sep string, count int) {
 	}
 }
 
-func dirTree(path string) error {
+func dirTree(path string, printFiles bool) error {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		return err
@@ -101,19 +102,42 @@ func dirTree(path string) error {
 	key++
 
 	for _, file := range files {
-		if i < (len(files) - 1) {
-			printTree(file.Name(), sep1, key-1)
-			i++
-		} else {
-			printTree(file.Name(), sep2, key-1)
+		if file.IsDir() && printFiles {
+			if i < (len(files) - 1) {
+				printTree(file.Name(), sep1, key-1)
+				i++
+			} else {
+				printTree(file.Name(), sep2, key-1)
+			}
 		}
 
-		err := dirTree(path + "/" + file.Name())
+		err := dirTree(path+"/"+file.Name(), printFiles)
 		if err != nil {
 			continue
 		}
 	}
 	key--
+	return nil
+}
+=============== OLD CODE STOP =================== */
+
+func dirTree(path string, printFiles bool) error {
+	files, err := ioutil.ReadDir(path)
+	if err != nil {
+		return err
+	}
+
+	for i := 0; i < len(files); i++ {
+		if files[i].IsDir() {
+			dirTree(path+"/"+files[i].Name(), printFiles)
+		}
+		if i == (len(files) - 1) {
+			fmt.Println("l", files[i].Name())
+		} else {
+			fmt.Println("r", files[i].Name())
+		}
+	}
+
 	return nil
 }
 
@@ -130,5 +154,5 @@ func main() {
 	// }
 	//fmt.Println(multiStr("a", 3))
 	fmt.Println("pfiles", printFiles)
-	dirTree(path)
+	dirTree(path, printFiles)
 }

@@ -121,20 +121,41 @@ func dirTree(path string, printFiles bool) error {
 }
 =============== OLD CODE STOP =================== */
 
+var deep int
+var regSep, lastSep string = "├───", "└───"
+
+func multiStr(s string, num int) string {
+	var newStr string
+	for i := 0; i < num; i++ {
+		newStr = newStr + s
+	}
+	return newStr
+}
+
 func dirTree(path string, printFiles bool) error {
+	var sep string
+
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		return err
 	}
 
 	for i := 0; i < len(files); i++ {
-		if files[i].IsDir() {
-			dirTree(path+"/"+files[i].Name(), printFiles)
-		}
 		if i == (len(files) - 1) {
-			fmt.Println("l", files[i].Name())
+			sep = lastSep
 		} else {
-			fmt.Println("r", files[i].Name())
+			sep = regSep
+		}
+
+		if files[i].IsDir() {
+			fmt.Println(multiStr("    ", deep), sep, files[i].Name())
+			deep++
+			dirTree(path+"/"+files[i].Name(), printFiles)
+			deep--
+		}
+
+		if !files[i].IsDir() && printFiles {
+			fmt.Println(multiStr("    ", deep), sep, files[i].Name())
 		}
 	}
 
@@ -152,7 +173,5 @@ func main() {
 	// if err != nil {
 	// 	panic(err.Error())
 	// }
-	//fmt.Println(multiStr("a", 3))
-	fmt.Println("pfiles", printFiles)
 	dirTree(path, printFiles)
 }

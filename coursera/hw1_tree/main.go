@@ -198,21 +198,26 @@ func deepCalc(path string, printFiles bool) error {
 // }
 
 func fillTree(tree Tree, path string, printFiles bool) {
-	fmt.Print(tree)
+	tree.unit[len(tree.unit)-1].pos[1] = 12
+	fmt.Println(tree)
 }
 
 func dirTree(path string, printFiles bool) error {
 	deepCalc(path, printFiles)
 
+	// var treeUnit TreeUnit = TreeUnit{[]int{1, 2, 3, 4}, false, "mystr"}
 	var treeUnit TreeUnit = TreeUnit{
-		pos: [1,2,3],
-		
+		pos:  make([]int, ddeep, ddeep),
+		last: false,
+		name: "mystr",
 	}
 
 	var tree Tree = Tree{}
-	tree.unit = append(tree.unit,)
+	tree.unit = append(tree.unit, treeUnit)
 
 	fillTree(tree, path, printFiles)
+
+	fmt.Println(tree)
 
 	return nil
 }

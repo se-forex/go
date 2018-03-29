@@ -121,8 +121,19 @@ func dirTree(path string, printFiles bool) error {
 }
 =============== OLD CODE STOP =================== */
 
-var deep int
+var deep, ddeep int
 var regSep, lastSep string = "├───", "└───"
+var gSep []int
+
+type TreeUnit struct {
+	pos  []int
+	last bool
+	name string
+}
+
+type Tree struct {
+	unit []TreeUnit
+}
 
 func multiStr(s string, num int) string {
 	var newStr string
@@ -132,32 +143,76 @@ func multiStr(s string, num int) string {
 	return newStr
 }
 
-func dirTree(path string, printFiles bool) error {
-	var sep string
-
+func deepCalc(path string, printFiles bool) error {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		return err
 	}
 
 	for i := 0; i < len(files); i++ {
-		if i == (len(files) - 1) {
-			sep = lastSep
-		} else {
-			sep = regSep
-		}
-
 		if files[i].IsDir() {
-			fmt.Println(multiStr("    ", deep), sep, files[i].Name())
+			if ddeep < deep {
+				ddeep = deep
+			}
 			deep++
-			dirTree(path+"/"+files[i].Name(), printFiles)
+			deepCalc(path+"/"+files[i].Name(), printFiles)
 			deep--
 		}
-
-		if !files[i].IsDir() && printFiles {
-			fmt.Println(multiStr("    ", deep), sep, files[i].Name())
-		}
 	}
+	return nil
+}
+
+// func myTempFunc() {
+// 	var sep string
+// 	gSep = append(gSep, deep)
+
+// 	files, err := ioutil.ReadDir(path)
+// 	if err != nil {
+// 		return err
+// 	}
+
+// 	for i := 0; i < len(files); i++ {
+// 		if i == (len(files) - 1) {
+// 			sep = lastSep
+// 			gSep[deep] = 0
+// 		} else {
+// 			sep = regSep
+// 			gSep[deep] = 1
+// 		}
+
+// 		if files[i].IsDir() {
+// 			fmt.Print(multiStr("│   ", deep), sep, files[i].Name(), deep, " ", gSep[deep], "\n")
+// 			//fmt.Print(gSep)
+// 			deep++
+// 			dirTree(path+"/"+files[i].Name(), printFiles)
+// 			deep--
+// 		}
+
+// 		if !files[i].IsDir() && printFiles {
+// 			fmt.Print(multiStr("│   ", deep), sep, files[i].Name(), deep, " ", gSep[deep], "\n")
+// 			//fmt.Print(gSep)
+// 		}
+// 	}
+
+// 	// fmt.Print(gSep)
+// }
+
+func fillTree(tree Tree, path string, printFiles bool) {
+	fmt.Print(tree)
+}
+
+func dirTree(path string, printFiles bool) error {
+	deepCalc(path, printFiles)
+
+	var treeUnit TreeUnit = TreeUnit{
+		pos: [1,2,3],
+		
+	}
+
+	var tree Tree = Tree{}
+	tree.unit = append(tree.unit,)
+
+	fillTree(tree, path, printFiles)
 
 	return nil
 }
@@ -173,5 +228,8 @@ func main() {
 	// if err != nil {
 	// 	panic(err.Error())
 	// }
+	deepCalc(path, printFiles)
+	deep = 0
+	fmt.Println(ddeep)
 	dirTree(path, printFiles)
 }

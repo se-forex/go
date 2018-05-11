@@ -26,10 +26,10 @@ func genHashPass(p, s []byte) []byte {
 
 func main() {
 
-	pass := "Se2l0f6"
+	pass := "123123"
 	salt := genSalt(10)
 
-	newPass := "Se2l0f61"
+	newPass := "1231231"
 
 	// io.WriteString(h, "love")
 	// st1 := h.Sum([]byte("love"))

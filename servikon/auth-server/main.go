@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -43,6 +44,7 @@ func getUserByEmail(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.Form) // print form information in server side
 
 	user := new(User)
+	var out []byte
 	var err error
 
 	for k, v := range r.Form {
@@ -55,7 +57,15 @@ func getUserByEmail(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("key:", k)
 		fmt.Println("val:", strings.Join(v, ""))
 	}
-	fmt.Fprintf(w, "%s, %s, %s, %s\n", user.Uid, user.Username, user.Email, user.Pass) // send data to client side
+
+	out, err = json.Marshal(user)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+	}
+
+	fmt.Fprintf(w, string(out))
+
+	//fmt.Fprintf(w, "%s, %s, %s, %s\n", user.Uid, user.Username, user.Email, user.Pass) // send data to client side
 }
 
 func searchUserByEmail(email string) (User, error) {

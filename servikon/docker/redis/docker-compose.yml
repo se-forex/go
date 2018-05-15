@@ -1,0 +1,8 @@
+redis:
+  image: redis:4.0.9-alpine
+  restart: always
+  command: ["redis-server", "--appendonly", "yes"]
+  ports:
+    - '6789:6379'
+  volumes:
+    - ~/redis-data:/data

@@ -7,13 +7,17 @@ import (
 	"encoding/base64"
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 const serverSalt = "MIfpaOS&UE02j30*YdfQA(PE8fQP(#&@Uhsal"
 
 func genSalt(n int) string {
+
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+
 	b := make([]byte, n)
-	rand.Read(b)
+	r.Read(b)
 
 	return base64.URLEncoding.EncodeToString(b)
 }
@@ -41,6 +45,10 @@ func main() {
 
 	pass := "123123"
 	salt := genSalt(10)
+
+	for i := 0; i < 10; i++ {
+		fmt.Printf("%x \n", genSalt(10))
+	}
 
 	newPass := "111111"
 

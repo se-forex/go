@@ -9,6 +9,8 @@ import (
 	"math/rand"
 )
 
+const serverSalt = "MIfpaOS&UE02j30*YdfQA(PE8fQP(#&@Uhsal"
+
 func genSalt(n int) string {
 	b := make([]byte, n)
 	rand.Read(b)
@@ -24,16 +26,23 @@ func genHashPass(p, s []byte) []byte {
 	return passHash.Sum(nil)
 }
 
-func main() {
-
+//add email string
+func procPassForDB(p []byte) string {
 	sss := "a"
+	return string(p) + sss
+}
+
+func procPassAfterDB(p string) []byte {
+	sss := "a"
+	return []byte(p[:(len(p) - len(sss))])
+}
+
+func main() {
 
 	pass := "123123"
 	salt := genSalt(10)
 
-	serverSalt := "MIfpaOS&UE02j30*YdfQA(PE8fQP(#&@Uhsal"
-
-	newPass := "123123"
+	newPass := "111111"
 
 	// io.WriteString(h, "love")
 	// st1 := h.Sum([]byte("love"))
@@ -54,21 +63,12 @@ func main() {
 
 	fmt.Println("Initial passHash:")
 	fmt.Printf("%x \n", hp1)
-	// fmt.Print(len(hp1), " ")
-	// fmt.Print(len(sss), " ")
-	// fmt.Println(len(string(hp1) + sss))
-	// fmt.Printf("%x \n", string(hp1))
-	fmt.Println("New passHash:")
-	fmt.Printf("%x \n", hp2)
 
-	fmt.Print("len h2: ")
-	fmt.Printf("%x \n", len(string(hp2)))
-	fmt.Println("len sss:", len(sss))
-	fmt.Printf("%x \n", string(hp2)+sss)
+	fmt.Println("Proc pass for DB:")
+	fmt.Printf("%x \n", procPassForDB(hp1))
 
-	nPass := string(hp2) + sss
-	fmt.Println("sss")
-	fmt.Printf("%x \n", nPass[:(len(nPass)-len(sss))])
+	fmt.Println("Proc pass after DB:")
+	fmt.Printf("%x \n", procPassAfterDB(procPassForDB(hp1)))
 
 	if bytes.Equal(hp1, hp2) {
 		fmt.Println("\nPasswors equal")
